@@ -1,0 +1,1560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Path Recommendations - HustleHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2E58FF;
+            --dark: #16171A;
+            --light: #FFFFFF;
+            --accent: #4ECDC4;
+            --glow-color: #FF6B35;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        .results-container {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .content-box {
+            background-color: rgba(22, 23, 26, 0.7);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 90%;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            margin: 20px 0;
+            animation: glowing 3s infinite alternate;
+        }
+        
+        @keyframes glowing {
+            0% {
+                box-shadow: 0 0 5px var(--glow-color), 0 0 10px var(--glow-color);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+            }
+        }
+        
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--light);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: clamp(1.5rem, 5vw, 2rem);
+        }
+        
+        .subtitle {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: clamp(0.9rem, 3vw, 1rem);
+        }
+        
+        .interest-section {
+            background: rgba(34, 35, 40, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transform: scale(0);
+            opacity: 0;
+            animation: pop-in 0.5s forwards;
+        }
+        
+        @keyframes pop-in {
+            0% {
+                transform: scale(0);
+                opacity: 0;
+            }
+            70% {
+                transform: scale(1.05);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        .interest-header {
+            display: flex;
+            align-items: center;
+            font-size: clamp(1rem, 4vw, 1.2rem);
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .interest-header span {
+            margin-right: 10px;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+        }
+        
+        .interest-header h2 {
+            margin: 0;
+            font-size: clamp(1.2rem, 4vw, 1.5rem);
+        }
+        
+        .career-level {
+            margin-bottom: 15px;
+        }
+        
+        .career-level h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        
+        .career-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease;
+            background-color: rgba(46, 88, 255, 0.05);
+            border-radius: 8px;
+        }
+        
+       
+        
+        .career-info {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        
+        .career-type {
+            font-weight: bold;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 4px;
+            font-size: 0.9rem;
+        }
+        
+        .career-title {
+            font-weight: 600;
+            color: var(--light);
+        }
+        
+        .know-more-btn {
+            background: var(--secondary);
+            color: var(--light);
+            border: none;
+            border-radius: 6px;
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+        
+        .know-more-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+        
+        .start-over-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 50px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            font-size: clamp(0.8rem, 3vw, 1rem);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .start-over-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.5);
+            animation: none;
+        }
+        
+        .start-over-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            transition: all 0.5s ease;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+        
+        .start-over-btn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .circle {
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 1;
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: -100px;
+            animation: float-slow 8s infinite alternate;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -200px;
+            right: -200px;
+            opacity: 0.1;
+            animation: float-slow 10s infinite alternate-reverse;
+        }
+        
+        @keyframes float-slow {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .floating-icon {
+            position: absolute;
+            animation: float 3s ease-in-out infinite;
+            z-index: 2;
+            font-size: 2rem;
+            opacity: 0.8;
+            display: none;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+        
+        /* Modal styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal {
+            background: linear-gradient(to bottom right, #1E1E24, #2D2D35);
+            width: 90%;
+            max-width: 600px;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            position: relative;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: all 0.3s ease;
+        }
+        
+        .modal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            color: var(--light);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: var(--primary);
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .modal-title {
+            color: var(--accent);
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .modal-subtitle {
+            margin-top: 5px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .modal-content {
+            margin-bottom: 20px;
+        }
+        
+        .info-section {
+            margin-bottom: 15px;
+        }
+        
+        .info-title {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title i {
+            margin-right: 8px;
+        }
+        
+        .info-content {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        
+        .skill-tag {
+            background: rgba(78, 205, 196, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-block;
+        }
+        
+        .salary-range {
+            color: var(--accent);
+            font-weight: bold;
+        }
+        
+        .explore-more {
+            text-align: center;
+        }
+        
+        .explore-btn {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .explore-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        /* Animation for slide-in */
+        @keyframes slide-in {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        /* Confetti styles */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: #f2d74e;
+            opacity: 0;
+            animation: confetti-fall 5s ease-out forwards;
+            z-index: 1;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-50px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Celebration Banner */
+        .celebration-banner {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(45deg, #FF6B35, #4ECDC4);
+            padding: 10px 30px;
+            border-radius: 30px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            animation: banner-pulse 2s infinite;
+        }
+        
+        @keyframes banner-pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.05); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+        
+        /* Tablet responsiveness */
+        @media (min-width: 768px) {
+            .content-box {
+                padding: 30px;
+            }
+            
+            .floating-icon {
+                display: block;
+            }
+            
+            .icon-1 { top: 20%; left: 10%; animation-delay: 0s; }
+            .icon-2 { top: 15%; right: 20%; animation-delay: 1s; }
+            .icon-3 { bottom: 30%; left: 15%; animation-delay: 0.5s; }
+            .icon-4 { bottom: 20%; right: 10%; animation-delay: 1.5s; }
+        }
+        
+        /* Desktop enhancements */
+        @media (min-width: 1024px) {
+            .floating-icon {
+                font-size: 2.5rem;
+            }
+            
+            .content-box {
+                padding: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container" id="resultsContainer">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        
+        <div class="floating-icon icon-1">🚀</div>
+        <div class="floating-icon icon-2">💼</div>
+        <div class="floating-icon icon-3">📈</div>
+        <div class="floating-icon icon-4">🎯</div>
+        
+        <div class="celebration-banner">Perfect Careers Found!</div>
+        
+        <div class="content-box">
+            <h1><span style="color: #D8BFD8;">Let's Make Your Hustle Count</span></h1>
+            <p class="subtitle">Careers that would suit you just perfect!!</p>
+            
+            <div id="careerResults">
+                <!-- Results will be inserted here -->
+            </div>
+            
+            <a href="index.html" class="start-over-btn">Explore More!</a>
+        </div>
+    </div>
+    
+    <!-- Modal for job details -->
+    <div class="modal-overlay" id="jobModal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalJobTitle">Job Title</h2>
+                <div class="modal-subtitle" id="modalJobCategory">Category</div>
+            </div>
+            <div class="modal-content">
+                <div class="info-section">
+                    <div class="info-title"><i>📝</i> Job Description</div>
+                    <div class="info-content" id="modalJobDescription">
+                        Loading job description...
+                    </div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title"><i>🛠️</i> Required Skills</div>
+                    <div class="info-content">
+                        <div class="skill-tags" id="modalSkills">
+                            <!-- Skills will be inserted here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <div class="info-title"><i>🎓</i> Education</div>
+                    <div class="info-content" id="modalEducation">
+                        Loading education requirements...
+                    </div>
+                </div>
+                <div class="info-section">
+                    
+                    
+                        <span class="salary-range" id="modalSalary">Loading salary information...</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    
+                    <div class="info-content" id="modalGrowth">
+                       
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+    </div>
+
+    <script>
+        // Comprehensive career mapping
+        const careersMap = {
+    technology: {
+        emoji: "🖥️",
+        beginner: [
+            { type: "Generic", title: "IT Support Specialist" },
+            { type: "Big Demand", title: "Help Desk Technician" },
+            { type: "Unique", title: "Tech Educator" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Web Developer" },
+            { type: "Big Demand", title: "Cybersecurity Analyst" },
+            { type: "Unique", title: "Accessibility Specialist" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Software Architect" },
+            { type: "Big Demand", title: "Data Scientist" },
+            { type: "Unique", title: "Ethical Hacking Consultant" }
+        ]
+    },
+    art: {
+        emoji: "🎨",
+        beginner: [
+            { type: "Generic", title: "Graphic Designer" },
+            { type: "Big Demand", title: "Digital Illustrator" },
+            { type: "Unique", title: "Art Restoration Assistant" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Art Director" },
+            { type: "Big Demand", title: "UX/UI Designer" },
+            { type: "Unique", title: "Museum Exhibit Designer" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Creative Director" },
+            { type: "Big Demand", title: "Animation Supervisor" },
+            { type: "Unique", title: "Cultural Heritage Conservator" }
+        ]
+    },
+    science: {
+        emoji: "🔬",
+        beginner: [
+            { type: "Generic", title: "Lab Technician" },
+            { type: "Big Demand", title: "Research Assistant" },
+            { type: "Unique", title: "Science Communicator" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Environmental Scientist" },
+            { type: "Big Demand", title: "Biomedical Researcher" },
+            { type: "Unique", title: "Forensic Science Technician" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Clinical Research Scientist" },
+            { type: "Big Demand", title: "Genetic Counselor" },
+            { type: "Unique", title: "Space Science Researcher" }
+        ]
+    },
+    business: {
+        emoji: "💼",
+        beginner: [
+            { type: "Generic", title: "Sales Representative" },
+            { type: "Big Demand", title: "Digital Marketing Assistant" },
+            { type: "Unique", title: "Sustainability Coordinator" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Marketing Manager" },
+            { type: "Big Demand", title: "Business Analyst" },
+            { type: "Unique", title: "Social Impact Consultant" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Financial Controller" },
+            { type: "Big Demand", title: "Operations Director" },
+            { type: "Unique", title: "Corporate Social Responsibility Manager" }
+        ]
+    },
+    music: {
+        emoji: "🎵",
+        beginner: [
+            { type: "Generic", title: "Music Teacher" },
+            { type: "Big Demand", title: "Audio Technician" },
+            { type: "Unique", title: "Instrument Repair Specialist" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Music Producer" },
+            { type: "Big Demand", title: "Sound Engineer" },
+            { type: "Unique", title: "Music Therapy Practitioner" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Conductor" },
+            { type: "Big Demand", title: "Acoustic Engineer" },
+            { type: "Unique", title: "Music Copyright Specialist" }
+        ]
+    },
+    writing: {
+        emoji: "✍️",
+        beginner: [
+            { type: "Generic", title: "Content Writer" },
+            { type: "Big Demand", title: "Technical Writer" },
+            { type: "Unique", title: "Grant Writer" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Editor" },
+            { type: "Big Demand", title: "Copywriter" },
+            { type: "Unique", title: "Medical Writer" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Author" },
+            { type: "Big Demand", title: "Content Strategist" },
+            { type: "Unique", title: "Transcreation Specialist" }
+        ]
+    },
+    sports: {
+        emoji: "🏀",
+        beginner: [
+            { type: "Generic", title: "Fitness Instructor" },
+            { type: "Big Demand", title: "Sports Coach" },
+            { type: "Unique", title: "Adventure Guide" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Athletic Trainer" },
+            { type: "Big Demand", title: "Sports Event Coordinator" },
+            { type: "Unique", title: "Sports Nutritionist" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Sports Medicine Physician" },
+            { type: "Big Demand", title: "Sports Psychologist" },
+            { type: "Unique", title: "Olympic Performance Analyst" }
+        ]
+    },
+    nature: {
+        emoji: "🌿",
+        beginner: [
+            { type: "Generic", title: "Park Ranger" },
+            { type: "Big Demand", title: "Environmental Technician" },
+            { type: "Unique", title: "Botanical Garden Guide" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Wildlife Biologist" },
+            { type: "Big Demand", title: "Conservation Officer" },
+            { type: "Unique", title: "Urban Forestry Specialist" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Environmental Policy Analyst" },
+            { type: "Big Demand", title: "Climate Scientist" },
+            { type: "Unique", title: "Marine Conservation Researcher" }
+        ]
+    },
+    cooking: {
+        emoji: "👨‍🍳",
+        beginner: [
+            { type: "Generic", title: "Line Cook" },
+            { type: "Big Demand", title: "Pastry Chef" },
+            { type: "Unique", title: "Food Stylist" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Sous Chef" },
+            { type: "Big Demand", title: "Restaurant Manager" },
+            { type: "Unique", title: "Specialty Food Producer" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Executive Chef" },
+            { type: "Big Demand", title: "Food Scientist" },
+            { type: "Unique", title: "Culinary Innovation Director" }
+        ]
+    },
+    psychology: {
+        emoji: "🧠",
+        beginner: [
+            { type: "Generic", title: "Career Counselor" },
+            { type: "Big Demand", title: "Human Resources Specialist" },
+            { type: "Unique", title: "Child Development Assistant" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "School Psychologist" },
+            { type: "Big Demand", title: "Organizational Psychologist" },
+            { type: "Unique", title: "Health Psychology Practitioner" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Clinical Psychologist" },
+            { type: "Big Demand", title: "Neuropsychologist" },
+            { type: "Unique", title: "Positive Psychology Researcher" }
+        ]
+    },
+    gaming: {
+        emoji: "🎮",
+        beginner: [
+            { type: "Generic", title: "Game Tester" },
+            { type: "Big Demand", title: "Community Moderator" },
+            { type: "Unique", title: "Game Localization Assistant" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Game Designer" },
+            { type: "Big Demand", title: "Esports Coach" },
+            { type: "Unique", title: "Serious Games Developer" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Game Director" },
+            { type: "Big Demand", title: "AI Game Programmer" },
+            { type: "Unique", title: "Gamification Consultant" }
+        ]
+    },
+    finance: {
+        emoji: "💰",
+        beginner: [
+            { type: "Generic", title: "Bank Teller" },
+            { type: "Big Demand", title: "Accounting Clerk" },
+            { type: "Unique", title: "Microfinance Officer" }
+        ],
+        intermediate: [
+            { type: "Generic", title: "Financial Analyst" },
+            { type: "Big Demand", title: "Tax Consultant" },
+            { type: "Unique", title: "Sustainable Investment Advisor" }
+        ],
+        advanced: [
+            { type: "Generic", title: "Investment Banker" },
+            { type: "Big Demand", title: "Chief Financial Officer" },
+            { type: "Unique", title: "Financial Technology Innovator" }
+        ]
+    }
+};
+     
+        // Animation delay for interest sections
+        let animationDelay = 0.2;
+        
+        // Mock function to simulate getting results from a previous page
+        // Get results from localStorage
+function getResultsFromQuery() {
+    const savedInterests = localStorage.getItem('selectedInterests');
+    
+    if (savedInterests) {
+        // Parse the JSON string back to an array
+        try {
+            return JSON.parse(savedInterests);
+        } catch (e) {
+            console.error("Error parsing saved interests:", e);
+            return [];
+        }
+    } else {
+        // Fallback if no interests are found
+        console.warn("No interests found in localStorage");
+        return [];
+    }
+}
+// Function to get selected skill level
+function getSkillLevelFromQuery() {
+    // First check URL parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    const skillLevel = urlParams.get('skillLevel');
+    
+    if (skillLevel) {
+        return skillLevel.toLowerCase();
+    }
+    
+    // Then check localStorage
+    const savedSkillLevel = localStorage.getItem('selectedSkillLevel');
+    if (savedSkillLevel) {
+        return savedSkillLevel.toLowerCase();
+    }
+    
+    // Default to beginner if no skill level is found
+    return 'beginner';
+}
+
+// Comprehensive job details database
+const jobDetails = {
+    // ===== TECHNOLOGY =====
+    "IT Support Specialist": {
+        description: "Provides technical assistance to computer users, resolves hardware/software issues, and maintains IT systems.",
+        skills: ["Technical troubleshooting", "Customer service", "System maintenance", "Network basics"],
+        education: "Associate degree in IT or relevant certifications like CompTIA A+"
+    },
+    "Help Desk Technician": {
+        description: "Offers first-line technical support to users, documents issues, and escalates complex problems.",
+        skills: ["Problem-solving", "Communication", "Ticketing systems", "Remote support"],
+        education: "High school diploma plus IT certifications"
+    },
+    "Tech Educator": {
+        description: "Teaches digital literacy and technology skills to students or adult learners in schools or community programs.",
+        skills: ["Curriculum development", "Patience", "Technology proficiency", "Instructional design"],
+        education: "Bachelor's degree in education or technology field"
+    },
+    "Web Developer": {
+        description: "Designs and builds functional websites using programming languages and content management systems.",
+        skills: ["HTML/CSS", "JavaScript", "Responsive design", "Version control (Git)"],
+        education: "Bachelor's degree in computer science or coding bootcamp certification"
+    },
+    "Cybersecurity Analyst": {
+        description: "Protects computer systems and networks from cyber threats by monitoring security breaches.",
+        skills: ["Network security", "Threat analysis", "Firewall configuration", "Incident response"],
+        education: "Bachelor's degree in cybersecurity plus Security+ certification"
+    },
+    "Accessibility Specialist": {
+        description: "Ensures digital products comply with accessibility standards for users with disabilities.",
+        skills: ["WCAG guidelines", "Screen reader testing", "Universal design principles"],
+        education: "Certification in digital accessibility (e.g., IAAP)"
+    },
+    "Software Architect": {
+        description: "Designs the fundamental structure of software systems and makes high-level technical decisions.",
+        skills: ["System design", "Cloud architecture", "Technical leadership", "Performance optimization"],
+        education: "Bachelor's degree in computer science plus 5+ years experience"
+    },
+    "Data Scientist": {
+        description: "Extracts insights from complex datasets using statistical analysis and machine learning.",
+        skills: ["Python/R", "Machine learning", "Data visualization", "SQL"],
+        education: "Master's degree in data science or related quantitative field"
+    },
+    "Ethical Hacking Consultant": {
+        description: "Identifies security vulnerabilities by simulating cyber attacks with permission.",
+        skills: ["Penetration testing", "Security tools", "Vulnerability assessment"],
+        education: "CEH (Certified Ethical Hacker) certification"
+    },
+
+    // ===== ART =====
+    "Graphic Designer": {
+        description: "Creates visual concepts for branding, advertising, and digital media using design software.",
+        skills: ["Adobe Creative Suite", "Typography", "Color theory", "Layout design"],
+        education: "Bachelor's degree in graphic design or visual arts"
+    },
+    "Digital Illustrator": {
+        description: "Produces digital artwork for books, games, advertising, and editorial content.",
+        skills: ["Digital painting", "Concept art", "Style adaptation", "Tablet proficiency"],
+        education: "Art school training or strong portfolio"
+    },
+    "Art Restoration Assistant": {
+        description: "Works under conservators to clean, repair, and preserve artworks and cultural artifacts.",
+        skills: ["Attention to detail", "Art history knowledge", "Manual dexterity"],
+        education: "Bachelor's in art conservation or related field"
+    },
+    "Art Director": {
+        description: "Oversees visual style and content for magazines, product packaging, and advertising.",
+        skills: ["Creative leadership", "Brand management", "Team coordination"],
+        education: "Bachelor's degree in art/design plus 5+ years experience"
+    },
+    "UX/UI Designer": {
+        description: "Designs user interfaces and experiences for websites and mobile applications.",
+        skills: ["Wireframing", "Prototyping", "User research", "Interaction design"],
+        education: "Bachelor's degree in design or UX certification"
+    },
+    "Museum Exhibit Designer": {
+        description: "Plans and creates educational displays that showcase art and historical artifacts.",
+        skills: ["Spatial design", "Interpretive planning", "Material selection"],
+        education: "Degree in museum studies or exhibition design"
+    },
+    "Creative Director": {
+        description: "Leads the creative vision for advertising agencies, media companies, or brands.",
+        skills: ["Concept development", "Team leadership", "Client relations"],
+        education: "Bachelor's degree plus 10+ years design experience"
+    },
+    "Animation Supervisor": {
+        description: "Oversees animation teams and ensures quality and consistency in animated productions.",
+        skills: ["Animation principles", "Team management", "Pipeline oversight"],
+        education: "Degree in animation plus industry experience"
+    },
+    "Cultural Heritage Conservator": {
+        description: "Preserves and restores culturally significant artworks and historical objects.",
+        skills: ["Chemistry applications", "Documentation", "Preventive conservation"],
+        education: "Master's degree in art conservation"
+    },
+
+    // ===== SCIENCE =====
+    "Lab Technician": {
+        description: "Conducts routine tests and experiments in scientific laboratories.",
+        skills: ["Lab equipment operation", "Data recording", "Safety protocols"],
+        education: "Associate degree in laboratory science"
+    },
+    "Research Assistant": {
+        description: "Supports scientific studies by collecting data and maintaining lab equipment.",
+        skills: ["Experimental procedures", "Literature reviews", "Data collection"],
+        education: "Bachelor's degree in relevant scientific field"
+    },
+    "Science Communicator": {
+        description: "Translates complex scientific information into engaging public content.",
+        skills: ["Science writing", "Public speaking", "Multimedia production"],
+        education: "Degree in science communication or scientific discipline"
+    },
+    "Environmental Scientist": {
+        description: "Studies environmental problems and develops solutions for conservation.",
+        skills: ["Field sampling", "Data analysis", "Regulatory knowledge"],
+        education: "Bachelor's degree in environmental science"
+    },
+    "Biomedical Researcher": {
+        description: "Conducts experiments to advance medical knowledge and treatments.",
+        skills: ["Laboratory techniques", "Scientific writing", "Data interpretation"],
+        education: "Master's degree in biomedical sciences"
+    },
+    "Forensic Science Technician": {
+        description: "Collects and analyzes physical evidence from crime scenes.",
+        skills: ["Evidence handling", "Laboratory analysis", "Report writing"],
+        education: "Bachelor's degree in forensic science"
+    },
+    "Clinical Research Scientist": {
+        description: "Designs and oversees clinical trials for new medical treatments.",
+        skills: ["Protocol development", "Regulatory compliance", "Data analysis"],
+        education: "PhD in medical science or related field"
+    },
+    "Genetic Counselor": {
+        description: "Helps patients understand genetic risks and make informed health decisions.",
+        skills: ["Genetic testing knowledge", "Counseling", "Risk assessment"],
+        education: "Master's degree in genetic counseling"
+    },
+    "Space Science Researcher": {
+        description: "Conducts studies on astronomical phenomena and space exploration technologies.",
+        skills: ["Data analysis", "Scientific computing", "Research design"],
+        education: "PhD in astronomy, physics, or aerospace engineering"
+    },
+
+    // ===== BUSINESS =====
+    "Sales Representative": {
+        description: "Sells products or services to businesses and consumers while building client relationships.",
+        skills: ["Communication", "Negotiation", "Product knowledge", "CRM software"],
+        education: "Bachelor's degree in business or related field"
+    },
+    "Digital Marketing Assistant": {
+        description: "Supports online marketing campaigns across social media, email, and other digital channels.",
+        skills: ["Content creation", "Social media management", "Basic analytics"],
+        education: "Bachelor's degree in marketing or communications"
+    },
+    "Sustainability Coordinator": {
+        description: "Develops and implements environmental initiatives for organizations.",
+        skills: ["Project management", "Environmental regulations", "Reporting"],
+        education: "Bachelor's in environmental studies or business"
+    },
+    "Marketing Manager": {
+        description: "Plans and executes marketing strategies to promote products and services.",
+        skills: ["Campaign management", "Market research", "Budgeting"],
+        education: "Bachelor's degree in marketing or business administration"
+    },
+    "Business Analyst": {
+        description: "Evaluates business processes and recommends improvements for efficiency.",
+        skills: ["Data analysis", "Process mapping", "Requirements gathering"],
+        education: "Bachelor's degree in business or related field"
+    },
+    "Social Impact Consultant": {
+        description: "Advises companies on creating positive social and environmental change.",
+        skills: ["CSR strategies", "Stakeholder engagement", "Impact measurement"],
+        education: "MBA or degree in social entrepreneurship"
+    },
+    "Financial Controller": {
+        description: "Manages accounting operations and financial reporting for organizations.",
+        skills: ["Financial reporting", "GAAP compliance", "Team leadership"],
+        education: "Bachelor's degree in accounting plus CPA"
+    },
+    "Operations Director": {
+        description: "Oversees daily business operations to ensure efficiency and productivity.",
+        skills: ["Process optimization", "Supply chain management", "Strategic planning"],
+        education: "MBA or bachelor's in business management"
+    },
+    "Corporate Social Responsibility Manager": {
+        description: "Develops and implements programs that align business practices with social good.",
+        skills: ["Sustainability initiatives", "Community relations", "Ethical sourcing"],
+        education: "Bachelor's degree in business or sustainability studies"
+    },
+
+    // ===== MUSIC =====
+    "Music Teacher": {
+        description: "Instructs students in musical instruments, theory, and appreciation.",
+        skills: ["Musical proficiency", "Teaching methods", "Curriculum development"],
+        education: "Bachelor's degree in music education"
+    },
+    "Audio Technician": {
+        description: "Sets up and operates sound equipment for live events and recordings.",
+        skills: ["Sound mixing", "Equipment maintenance", "Acoustics"],
+        education: "Vocational training in audio engineering"
+    },
+    "Instrument Repair Specialist": {
+        description: "Maintains and repairs musical instruments to optimal playing condition.",
+        skills: ["Manual skills", "Acoustic knowledge", "Precision work"],
+        education: "Apprenticeship or technical school certification"
+    },
+    "Music Producer": {
+        description: "Oversees recording sessions and guides the artistic direction of musical projects.",
+        skills: ["Audio engineering", "Arrangement", "Artist collaboration"],
+        education: "Music production degree or equivalent experience"
+    },
+    "Sound Engineer": {
+        description: "Records, mixes, and masters audio for music, film, and other media.",
+        skills: ["DAW proficiency", "Microphone techniques", "Signal processing"],
+        education: "Degree in audio engineering or related field"
+    },
+    "Music Therapy Practitioner": {
+        description: "Uses music interventions to address clients' physical, emotional, and cognitive needs.",
+        skills: ["Musical proficiency", "Therapeutic techniques", "Assessment"],
+        education: "Bachelor's in music therapy plus board certification"
+    },
+    "Conductor": {
+        description: "Leads musical ensembles in rehearsal and performance.",
+        skills: ["Score reading", "Rehearsal techniques", "Artistic interpretation"],
+        education: "Master's degree in conducting"
+    },
+    "Acoustic Engineer": {
+        description: "Designs spaces and systems for optimal sound quality and noise control.",
+        skills: ["Acoustic modeling", "Material science", "Measurement techniques"],
+        education: "Bachelor's degree in acoustical engineering"
+    },
+    "Music Copyright Specialist": {
+        description: "Manages intellectual property rights for musical compositions and recordings.",
+        skills: ["Copyright law", "Licensing agreements", "Royalty systems"],
+        education: "Law degree with music industry focus"
+    },
+
+    // ===== WRITING =====
+    "Content Writer": {
+        description: "Creates written material for websites, blogs, and marketing materials.",
+        skills: ["Research", "SEO writing", "Adaptability"],
+        education: "Bachelor's degree in English, journalism, or related field"
+    },
+    "Technical Writer": {
+        description: "Produces clear documentation for complex technical products and processes.",
+        skills: ["Technical comprehension", "Simplification", "Document design"],
+        education: "Bachelor's degree in technical writing or related field"
+    },
+    "Grant Writer": {
+        description: "Researches and writes proposals to secure funding for non-profits and institutions.",
+        skills: ["Persuasive writing", "Research", "Budget alignment"],
+        education: "Bachelor's degree in English or communications"
+    },
+    "Editor": {
+        description: "Reviews and improves written content for clarity, accuracy, and style.",
+        skills: ["Grammar expertise", "Attention to detail", "Style guidelines"],
+        education: "Bachelor's degree in English or journalism"
+    },
+    "Copywriter": {
+        description: "Creates persuasive text for advertisements and marketing campaigns.",
+        skills: ["Creative writing", "Brand voice", "Concept development"],
+        education: "Bachelor's degree in advertising or communications"
+    },
+    "Medical Writer": {
+        description: "Prepares scientific documents for healthcare professionals and patients.",
+        skills: ["Scientific literacy", "Regulatory knowledge", "Plain language"],
+        education: "Bachelor's degree in life sciences plus writing training"
+    },
+    "Author": {
+        description: "Writes original books, novels, or other long-form written works.",
+        skills: ["Storytelling", "Research", "Self-discipline"],
+        education: "Creative writing degree or demonstrated writing ability"
+    },
+    "Content Strategist": {
+        description: "Plans and manages content creation to meet business objectives.",
+        skills: ["Audience analysis", "Content planning", "Performance measurement"],
+        education: "Bachelor's degree in marketing or communications"
+    },
+    "Transcreation Specialist": {
+        description: "Adapts content culturally and linguistically for international markets.",
+        skills: ["Bilingual fluency", "Cultural knowledge", "Creative adaptation"],
+        education: "Degree in translation studies or linguistics"
+    },
+
+    // ===== SPORTS =====
+    "Fitness Instructor": {
+        description: "Leads group exercise classes and provides fitness guidance to clients.",
+        skills: ["Exercise techniques", "Motivation", "Class planning"],
+        education: "Certification from recognized fitness organization"
+    },
+    "Sports Coach": {
+        description: "Trains athletes and teams to improve performance in specific sports.",
+        skills: ["Sport-specific knowledge", "Drill design", "Player development"],
+        education: "Coaching certification in relevant sport"
+    },
+    "Adventure Guide": {
+        description: "Leads outdoor activities like hiking, climbing, or rafting for groups.",
+        skills: ["Outdoor skills", "Risk management", "Natural history"],
+        education: "Wilderness first responder certification"
+    },
+    "Athletic Trainer": {
+        description: "Prevents, diagnoses, and treats muscle and bone injuries for athletes.",
+        skills: ["Injury assessment", "Rehabilitation", "Emergency care"],
+        education: "Bachelor's degree in athletic training"
+    },
+    "Sports Event Coordinator": {
+        description: "Plans and executes sporting events from local tournaments to large competitions.",
+        skills: ["Logistics", "Vendor management", "Scheduling"],
+        education: "Bachelor's degree in sports management"
+    },
+    "Sports Nutritionist": {
+        description: "Develops dietary plans to optimize athletic performance and recovery.",
+        skills: ["Nutrition science", "Meal planning", "Supplement knowledge"],
+        education: "Bachelor's degree in nutrition or dietetics"
+    },
+    "Sports Medicine Physician": {
+        description: "Diagnoses and treats injuries related to sports and physical activity.",
+        skills: ["Medical diagnosis", "Treatment planning", "Rehabilitation"],
+        education: "Medical degree plus sports medicine fellowship"
+    },
+    "Sports Psychologist": {
+        description: "Helps athletes improve mental toughness and overcome performance challenges.",
+        skills: ["Performance psychology", "Counseling", "Mental skills training"],
+        education: "Doctoral degree in psychology with sports focus"
+    },
+    "Olympic Performance Analyst": {
+        description: "Uses data to optimize training and competition strategies for elite athletes.",
+        skills: ["Sports analytics", "Video analysis", "Performance metrics"],
+        education: "Master's in sports science or related field"
+    },
+
+    // ===== NATURE =====
+    "Park Ranger": {
+        description: "Protects natural areas and educates visitors about conservation and safety.",
+        skills: ["Natural history", "Public speaking", "First aid"],
+        education: "Bachelor's degree in environmental science or related field"
+    },
+    "Environmental Technician": {
+        description: "Collects environmental samples and monitors pollution levels.",
+        skills: ["Field sampling", "Data recording", "Equipment operation"],
+        education: "Associate degree in environmental technology"
+    },
+    "Botanical Garden Guide": {
+        description: "Educates visitors about plant collections and conservation efforts.",
+        skills: ["Horticulture knowledge", "Public speaking", "Education"],
+        education: "Degree in botany or environmental education"
+    },
+    "Wildlife Biologist": {
+        description: "Studies animals in their natural habitats and develops conservation plans.",
+        skills: ["Field research", "Species identification", "Data analysis"],
+        education: "Bachelor's degree in wildlife biology"
+    },
+    "Conservation Officer": {
+        description: "Enforces laws protecting wildlife, fisheries, and natural resources.",
+        skills: ["Law enforcement", "Wildlife laws", "Public education"],
+        education: "Bachelor's degree in conservation law enforcement"
+    },
+    "Urban Forestry Specialist": {
+        description: "Manages tree populations in urban environments for community benefit.",
+        skills: ["Arboriculture", "Urban planning", "Disease management"],
+        education: "Bachelor's degree in forestry or urban ecology"
+    },
+    "Environmental Policy Analyst": {
+        description: "Researches and develops policies to address environmental challenges.",
+        skills: ["Policy analysis", "Research", "Stakeholder engagement"],
+        education: "Master's degree in environmental policy"
+    },
+    "Climate Scientist": {
+        description: "Studies climate systems and analyzes climate change data.",
+        skills: ["Data modeling", "Statistical analysis", "Scientific writing"],
+        education: "PhD in atmospheric sciences or related field"
+    },
+    "Marine Conservation Researcher": {
+        description: "Studies and protects ocean ecosystems and marine species.",
+        skills: ["Scientific diving", "Data collection", "Policy analysis"],
+        education: "PhD in marine biology or related field"
+    },
+
+    // ===== COOKING =====
+    "Line Cook": {
+        description: "Prepares food in restaurants under the direction of chefs.",
+        skills: ["Knife skills", "Food safety", "Time management"],
+        education: "Culinary school or on-the-job training"
+    },
+    "Pastry Chef": {
+        description: "Specializes in creating desserts, breads, and other baked goods.",
+        skills: ["Baking techniques", "Decoration", "Recipe development"],
+        education: "Pastry arts degree or apprenticeship"
+    },
+    "Food Stylist": {
+        description: "Prepares food for photography and film to maximize visual appeal.",
+        skills: ["Plating techniques", "Photography basics", "Time management"],
+        education: "Culinary arts training"
+    },
+    "Sous Chef": {
+        description: "Serves as second-in-command in professional kitchens.",
+        skills: ["Menu planning", "Kitchen management", "Quality control"],
+        education: "Culinary degree plus 3+ years experience"
+    },
+    "Restaurant Manager": {
+        description: "Oversees daily operations of food service establishments.",
+        skills: ["Staff management", "Customer service", "Financial oversight"],
+        education: "Bachelor's degree in hospitality management"
+    },
+    "Specialty Food Producer": {
+        description: "Creates artisanal food products like cheese, chocolate, or cured meats.",
+        skills: ["Traditional techniques", "Quality control", "Small business"],
+        education: "Specialized training in food production"
+    },
+    "Executive Chef": {
+        description: "Leads kitchen operations and creates menus for restaurants or hotels.",
+        skills: ["Culinary creativity", "Staff leadership", "Cost control"],
+        education: "Culinary degree plus 7+ years experience"
+    },
+    "Food Scientist": {
+        description: "Develops new food products and improves food processing methods.",
+        skills: ["Food chemistry", "Product development", "Safety standards"],
+        education: "Bachelor's degree in food science"
+    },
+    "Culinary Innovation Director": {
+        description: "Develops new food concepts and dining experiences.",
+        skills: ["Trend analysis", "Recipe development", "Concept testing"],
+        education: "Culinary degree plus business experience"
+    },
+
+    // ===== PSYCHOLOGY =====
+    "Career Counselor": {
+        description: "Helps individuals explore career options and develop job search strategies.",
+        skills: ["Assessment", "Career theory", "Resource knowledge"],
+        education: "Master's degree in counseling with career focus"
+    },
+    "Human Resources Specialist": {
+        description: "Manages employee relations, recruitment, and workplace policies.",
+        skills: ["Interviewing", "Conflict resolution", "Policy implementation"],
+        education: "Bachelor's degree in human resources or psychology"
+    },
+    "Child Development Assistant": {
+        description: "Supports psychologists in assessing and helping children's development.",
+        skills: ["Observation", "Documentation", "Child psychology basics"],
+        education: "Bachelor's in psychology or child development"
+    },
+    "School Psychologist": {
+        description: "Supports students' learning and mental health in educational settings.",
+        skills: ["Assessment", "Counseling", "Crisis intervention"],
+        education: "Master's degree in school psychology"
+    },
+    "Organizational Psychologist": {
+        description: "Applies psychology principles to improve workplace productivity and culture.",
+        skills: ["Assessment design", "Data analysis", "Organizational development"],
+        education: "Master's degree in industrial-organizational psychology"
+    },
+    "Health Psychology Practitioner": {
+        description: "Helps patients manage chronic illnesses and adopt healthy behaviors.",
+        skills: ["Behavior change", "Patient education", "Stress management"],
+        education: "Doctoral degree in clinical health psychology"
+    },
+    "Clinical Psychologist": {
+        description: "Assesses and treats mental, emotional, and behavioral disorders.",
+        skills: ["Diagnosis", "Therapy", "Treatment planning"],
+        education: "Doctoral degree in clinical psychology"
+    },
+    "Neuropsychologist": {
+        description: "Assesses brain function and treats cognitive impairments.",
+        skills: ["Neuropsychological testing", "Rehabilitation", "Research"],
+        education: "Doctoral degree in neuropsychology"
+    },
+    "Positive Psychology Researcher": {
+        description: "Studies human flourishing and develops wellbeing interventions.",
+        skills: ["Research methods", "Data analysis", "Intervention design"],
+        education: "PhD in psychology with positive psychology focus"
+    },
+
+    // ===== GAMING =====
+    "Game Tester": {
+        description: "Plays video games in development to identify bugs and gameplay issues.",
+        skills: ["Attention to detail", "Bug documentation", "Game mechanics"],
+        education: "High school diploma; some positions require game design coursework"
+    },
+    "Community Moderator": {
+        description: "Manages online gaming communities and enforces conduct standards.",
+        skills: ["Conflict resolution", "Communication", "Policy enforcement"],
+        education: "Bachelor's degree in communications or related field"
+    },
+    "Game Localization Assistant": {
+        description: "Helps adapt games for different languages and cultural contexts.",
+        skills: ["Language fluency", "Cultural adaptation", "Quality assurance"],
+        education: "Degree in translation or related field"
+    },
+    "Game Designer": {
+        description: "Creates game concepts, rules, and player experiences.",
+        skills: ["Game mechanics", "Level design", "Prototyping"],
+        education: "Bachelor's degree in game design"
+    },
+    "Esports Coach": {
+        description: "Trains competitive gamers and teams to improve performance.",
+        skills: ["Game strategy", "Team management", "Performance analysis"],
+        education: "High-level competitive experience plus coaching knowledge"
+    },
+    "Serious Games Developer": {
+        description: "Creates games for education, training, and social impact.",
+        skills: ["Instructional design", "Game mechanics", "Learning outcomes"],
+        education: "Degree in game design or educational technology"
+    },
+    "Game Director": {
+        description: "Leads the creative vision and development of video game projects.",
+        skills: ["Creative leadership", "Project management", "Team coordination"],
+        education: "Bachelor's degree plus extensive industry experience"
+    },
+    "AI Game Programmer": {
+        description: "Develops artificial intelligence systems for non-player characters.",
+        skills: ["AI programming", "Behavior trees", "Pathfinding algorithms"],
+        education: "Bachelor's degree in computer science or game programming"
+    },
+    "Gamification Consultant": {
+        description: "Applies game design elements to non-game contexts for engagement.",
+        skills: ["Behavioral psychology", "Game mechanics", "User engagement"],
+        education: "Bachelor's degree in game design or psychology"
+    },
+
+    // ===== FINANCE =====
+    "Bank Teller": {
+        description: "Processes financial transactions and provides customer service in banks.",
+        skills: ["Cash handling", "Customer service", "Attention to detail"],
+        education: "High school diploma; on-the-job training provided"
+    },
+    "Accounting Clerk": {
+        description: "Maintains financial records and processes transactions for organizations.",
+        skills: ["Data entry", "Bookkeeping", "Accounting software"],
+        education: "Associate degree in accounting"
+    },
+    "Microfinance Officer": {
+        description: "Provides small loans and financial services to underserved entrepreneurs.",
+        skills: ["Financial literacy", "Community development", "Risk assessment"],
+        education: "Bachelor's degree in finance or development studies"
+    },
+    "Financial Analyst": {
+        description: "Evaluates financial data to guide business investment decisions.",
+        skills: ["Financial modeling", "Data analysis", "Reporting"],
+        education: "Bachelor's degree in finance or accounting"
+    },
+    "Tax Consultant": {
+        description: "Advises individuals and businesses on tax planning and compliance.",
+        skills: ["Tax law", "Research", "Client communication"],
+        education: "Bachelor's degree in accounting; CPA preferred"
+    },
+    "Sustainable Investment Advisor": {
+        description: "Recommends environmentally and socially responsible investment options.",
+        skills: ["ESG analysis", "Portfolio management", "Client relations"],
+        education: "Bachelor's degree in finance plus sustainability knowledge"
+    },
+    "Investment Banker": {
+        description: "Helps companies raise capital and advises on mergers and acquisitions.",
+        skills: ["Financial modeling", "Deal structuring", "Market analysis"],
+        education: "Bachelor's degree in finance; MBA often required"
+    },
+    "Chief Financial Officer": {
+        description: "Oversees all financial operations of an organization.",
+        skills: ["Financial strategy", "Risk management", "Executive leadership"],
+        education: "MBA or master's in finance plus extensive experience"
+    },
+    "Financial Technology Innovator": {
+        description: "Develops new digital solutions for banking and financial services.",
+        skills: ["Fintech trends", "Product development", "Regulatory knowledge"],
+        education: "Degree in finance, computer science, or business"
+    }
+};
+        
+        // Function to render career results
+       // Function to render career results
+       function renderResults() {
+    const resultsContainer = document.getElementById("careerResults");
+    const selectedInterests = getResultsFromQuery();
+    
+    // Get the selected skill level from localStorage
+    const skillLevel = localStorage.getItem('selectedSkillLevel') || 'beginner';
+    
+    selectedInterests.forEach(interest => {
+        const interestSection = document.createElement("div");
+        interestSection.className = "interest-section";
+        interestSection.style.animationDelay = `${animationDelay}s`;
+        animationDelay += 0.2;
+        
+        const interestData = careersMap[interest];
+        
+        // Skip if the interest doesn't exist in our map
+        if (!interestData) return;
+        
+        let careersToShow = [];
+        
+        // Get the appropriate careers based on skill level
+        if (skillLevel === 'beginner') {
+            careersToShow = interestData.beginner || [];
+        } else if (skillLevel === 'intermediate') {
+            careersToShow = interestData.intermediate || [];
+        } else if (skillLevel === 'advanced') {
+            careersToShow = interestData.advanced || [];
+        }
+        
+        // Only create section if there are careers to show
+        if (careersToShow.length > 0) {
+            const levelContent = `
+                <div class="career-level">
+                    ${careersToShow.map(career => createCareerItem(career)).join('')}
+                </div>
+            `;
+            
+            interestSection.innerHTML = `
+                <div class="interest-header">
+                    <span>${interestData.emoji}</span>
+                    <h2>${interest.charAt(0).toUpperCase() + interest.slice(1)}</h2>
+                </div>
+                ${levelContent}
+            `;
+            
+            resultsContainer.appendChild(interestSection);
+        }
+    });
+    
+    // Create confetti effect
+    createConfetti();
+}
+        // Function to create individual career items
+        function createCareerItem(career) {
+            return `
+                <div class="career-item">
+                    <div class="career-info">
+                        <div class="career-type">${career.type}</div>
+                        <div class="career-title">${career.title}</div>
+                    </div>
+                    <button class="know-more-btn" onclick="showJobDetails('${career.title}')">Know More</button>
+                </div>
+            `;
+        }
+        
+        // Function to show job details in modal
+        function showJobDetails(jobTitle) {
+            const jobDetail = jobDetails[jobTitle] || {
+                description: "Detailed information coming soon...",
+                skills: ["Skill 1", "Skill 2", "Skill 3"],
+                education: "Education details not available yet.",
+               
+            };
+            
+            // Set modal content
+            document.getElementById("modalJobTitle").textContent = jobTitle;
+            document.getElementById("modalJobCategory").textContent = getCategoryForJob(jobTitle);
+            document.getElementById("modalJobDescription").textContent = jobDetail.description;
+            document.getElementById("modalEducation").textContent = jobDetail.education;
+            document.getElementById("modalSalary").textContent = jobDetail.salary;
+            document.getElementById("modalGrowth").textContent = jobDetail.growth;
+            
+            // Set skills
+            const skillsContainer = document.getElementById("modalSkills");
+            skillsContainer.innerHTML = "";
+            jobDetail.skills.forEach(skill => {
+                const skillTag = document.createElement("span");
+                skillTag.className = "skill-tag";
+                skillTag.textContent = skill;
+                skillsContainer.appendChild(skillTag);
+            });
+            
+            // Show modal
+            const modal = document.getElementById("jobModal");
+            modal.style.display = "flex";
+            setTimeout(() => {
+                document.querySelector(".modal").classList.add("active");
+            }, 10);
+        }
+        
+        // Function to close modal
+        function closeModal() {
+            document.querySelector(".modal").classList.remove("active");
+            setTimeout(() => {
+                document.getElementById("jobModal").style.display = "none";
+            }, 300);
+        }
+        
+        // Helper function to find category for a job
+        function getCategoryForJob(jobTitle) {
+            for (const [category, data] of Object.entries(careersMap)) {
+                for (const level of ['beginner', 'intermediate', 'advanced']) {
+                    const found = data[level].find(job => job.title === jobTitle);
+                    if (found) {
+                        return category.charAt(0).toUpperCase() + category.slice(1);
+                    }
+                }
+            }
+            return "General";
+        }
+        
+        // Function to create confetti effect
+        function createConfetti() {
+            const confettiColors = ['#FF6B35', '#4ECDC4', '#FF5733', '#C70039', '#900C3F', '#581845', '#2E58FF'];
+            const confettiCount = 100;
+            
+            for (let i = 0; i < confettiCount; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+                confetti.style.width = Math.random() * 10 + 5 + 'px';
+                confetti.style.height = Math.random() * 10 + 5 + 'px';
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                confetti.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(confetti);
+                
+                // Remove confetti after animation
+                setTimeout(() => {
+                    confetti.remove();
+                }, 7000);
+            }
+        }
+        
+        // Initialize on page load
+        window.onload = function() {
+            renderResults();
+            
+            // Close modal when clicking outside
+            document.getElementById("jobModal").addEventListener("click", function(e) {
+                if (e.target === this) {
+                    closeModal();
+                }
+            });
+        };
+    </script>
+</body>
+</html>

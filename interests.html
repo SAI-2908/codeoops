@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Professional Interests - HustleHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&family=Montserrat:wght@400;700;900&family=Righteous&family=Fredoka+One&family=Bungee&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2E58FF;
+            --dark: #16171A;
+            --light: #FFFFFF;
+            --accent: #4ECDC4;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .interests-container {
+            min-height: 100vh;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            z-index: 5;
+        }
+        
+        .content-box {
+            background-color: rgba(22, 23, 26, 0.7);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 95%;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            animation: boxPulse 2s infinite ease-in-out;
+        }
+        
+        h1 {
+            font-family: 'Righteous', cursive;
+            color: var(--light);
+            font-weight: 700;
+            margin-bottom: 15px;
+            font-size: 2.4rem;
+            animation: titleWave 2s ease-in-out infinite;
+            text-shadow: 0 0 10px rgba(255, 107, 53, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-family: 'Fredoka One', cursive;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+        
+        .interests-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+            width: 100%;
+        }
+        
+        .interest-card {
+            background: rgba(34, 35, 40, 0.7);
+            border-radius: 10px;
+            padding: 15px 5px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: calc(var(--order) * 0.1s);
+            opacity: 0;
+            font-family: 'Fredoka One', cursive;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .interest-card input {
+            display: none;
+        }
+        
+        .interest-card:hover {
+            transform: translateY(-8px) rotate(2deg);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.3), 0 0 15px rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
+        }
+        
+        .interest-card.selected {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--light);
+            box-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+            transform: scale(1.05);
+        }
+
+        .interest-card.selected::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 10px;
+            z-index: -1;
+            animation: pulse 2s infinite;
+        }
+        
+        .interest-card span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .interest-card:hover span {
+            transform: scale(1.2) rotate(10deg);
+        }
+        
+        .continue-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            padding: 14px 40px;
+            border-radius: 50px;
+            margin-top: 40px;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            opacity: 0.5;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 700;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            animation: fadeIn 1s ease-out forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+            font-family: 'Bungee', cursive;
+        }
+        
+        .continue-btn.active {
+            opacity: 1;
+            pointer-events: all;
+            animation: neonPulse 1.5s infinite alternate;
+        }
+        
+        .continue-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 30px rgba(255, 107, 53, 0.5);
+            letter-spacing: 3px;
+        }
+        
+        .continue-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            transition: all 0.5s ease;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+        
+        .continue-btn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 1;
+            filter: blur(20px);
+        }
+        
+        .circle-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--primary);
+            top: 10%;
+            left: -100px;
+            animation: floatCircle 15s infinite alternate ease-in-out;
+        }
+        
+        .circle-2 {
+            width: 600px;
+            height: 600px;
+            background: var(--secondary);
+            bottom: -200px;
+            right: -200px;
+            opacity: 0.1;
+            animation: floatCircle 20s infinite alternate-reverse ease-in-out;
+        }
+
+        .circle-3 {
+            width: 300px;
+            height: 300px;
+            background: var(--accent);
+            top: 40%;
+            right: 10%;
+            opacity: 0.08;
+            animation: floatCircle 18s infinite alternate ease-in-out;
+        }
+        
+        /* Enhanced animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 107, 53, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 107, 53, 0); }
+        }
+        
+        @keyframes boxPulse {
+            0% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+            50% { box-shadow: 0 15px 50px rgba(255, 107, 53, 0.3); }
+            100% { box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+        }
+        
+        @keyframes floatCircle {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, 30px) scale(1.1); }
+            100% { transform: translate(-30px, 20px) scale(0.9); }
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-15px); }
+            60% { transform: translateY(-7px); }
+        }
+
+        @keyframes titleWave {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes neonPulse {
+            from {
+                box-shadow: 0 0 10px #ff6b35, 0 0 20px #ff6b35;
+            }
+            to {
+                box-shadow: 0 0 20px #ff6b35, 0 0 30px #ff6b35, 0 0 40px #ff6b35;
+            }
+        }
+        
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .content-box {
+                padding: 20px 15px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
+            
+            .interest-card span {
+                font-size: 1.8rem;
+            }
+            
+            .continue-btn {
+                padding: 12px 30px;
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .interests-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 8px;
+            }
+            
+            .interest-card {
+                padding: 8px 5px;
+                font-size: 0.85rem;
+            }
+            
+            .interest-card span {
+                font-size: 1.5rem;
+                margin-bottom: 5px;
+            }
+            
+            h1 {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="interests-container">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        <div class="circle circle-3"></div>
+        
+        <div class="content-box">
+            <h1>Choose What Interests You!</h1>
+            <p class="subtitle">Select The Field That Match Your Career Goals!</p>
+            
+            <div class="interests-grid">
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="technology">
+                    <span>🖥️</span>
+                    Technology
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="art">
+                    <span>🎨</span>
+                    Art & Design
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="science">
+                    <span>🔬</span>
+                    Science
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="business">
+                    <span>💼</span>
+                    Business
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="music">
+                    <span>🎵</span>
+                    Music
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="writing">
+                    <span>✍️</span>
+                    Writing
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="sports">
+                    <span>🏀</span>
+                    Sports
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="nature">
+                    <span>🌿</span>
+                    Nature
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="cooking">
+                    <span>👨‍🍳</span>
+                    Cooking
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="psychology">
+                    <span>🧠</span>
+                    Psychology
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="gaming">
+                    <span>🎮</span>
+                     Gaming
+                </label>
+                <label class="interest-card">
+                    <input type="radio" name="interest" value="finance">
+                    <span>💰</span>
+                    Finance
+                </label>
+            </div>
+            
+            <a href="skills.html" class="continue-btn">Continue</a>
+        </div>
+    </div>
+
+    <script>
+        const interestCards = document.querySelectorAll('.interest-card');
+        const continueBtn = document.querySelector('.continue-btn');
+    
+        // Set animation order for cards
+        interestCards.forEach((card, index) => {
+            card.style.setProperty('--order', index);
+        });
+        
+        // Save interest immediately when clicked
+        interestCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                // Remove selection from all other cards
+                document.querySelectorAll('.interest-card.selected').forEach(selectedCard => {
+                    if (selectedCard !== card) {
+                        selectedCard.classList.remove('selected');
+                    }
+                });
+                
+                // Toggle selection for this card
+                card.classList.add('selected');
+                card.querySelector('input').checked = true;
+                
+                // Save to localStorage (single selection only)
+                const selectedValue = card.querySelector('input').value;
+                localStorage.setItem('selectedInterests', JSON.stringify([selectedValue]));
+                
+                // Update button
+                continueBtn.classList.add('active');
+            });
+        });
+    
+        // Prevent navigation until we're ready
+        continueBtn.addEventListener('click', function(e) {
+            if (!document.querySelector('.interest-card.selected')) {
+                e.preventDefault();
+                
+                this.animate([
+                    { transform: 'translateX(0)' },
+                    { transform: 'translateX(-10px)' },
+                    { transform: 'translateX(10px)' },
+                    { transform: 'translateX(-5px)' },
+                    { transform: 'translateX(5px)' },
+                    { transform: 'translateX(0)' }
+                ], {
+                    duration: 500,
+                    easing: 'ease-in-out'
+                });
+                
+                alert('Please select one interest');
+            } else {
+                // Add transition effect when navigating
+                document.querySelector('.content-box').animate([
+                    { opacity: 1, transform: 'scale(1)' },
+                    { opacity: 0, transform: 'scale(0.8)' }
+                ], {
+                    duration: 300,
+                    easing: 'ease-out',
+                    fill: 'forwards'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

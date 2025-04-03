@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proficiency Assessment - HustleHub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;900&family=Montserrat:wght@400;700;900&family=Righteous&family=Bangers&family=Pacifico&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #FF6B35;
+            --secondary: #2E58FF;
+            --dark: #16171A;
+            --light: #FFFFFF;
+            --accent: #4ECDC4;
+            --glow-color: rgba(255, 107, 53, 0.7);
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--dark);
+            color: var(--light);
+            width: 100%;
+            overflow: hidden; /* Prevent all scrolling */
+            position: fixed; /* Additional measure to prevent scrolling */
+        }
+
+        .skills-container {
+            height: 100vh; /* Use viewport height instead of min-height */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden; /* Prevent container scrolling */
+        }
+        
+        .content-box {
+            background-color: rgba(22, 23, 26, 0.7);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 90%;
+            border: 1px solid rgba(255, 107, 53, 0.2);
+            position: relative;
+            z-index: 10;
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.8s ease;
+            max-height: 90vh; /* Ensure it doesn't exceed viewport height */
+            overflow-y: auto; /* Allow scrolling within the box if needed */
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        h1 {
+            font-family: 'Bangers', cursive;
+            color: var(--light);
+            margin-bottom: 15px;
+            font-size: clamp(2rem, 6vw, 2.8rem);
+            letter-spacing: 2px;
+            text-shadow: 3px 3px 0px var(--primary);
+            animation: pulse 2s infinite alternate;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+        
+        .subtitle {
+            font-family: 'Righteous', cursive;
+            color: var(--accent);
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+            animation: colorShift 4s infinite alternate;
+        }
+        
+        @keyframes colorShift {
+            0% { color: var(--accent); }
+            50% { color: var(--primary); }
+            100% { color: var(--secondary); }
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .skill-card {
+            background: rgba(34, 35, 40, 0.7);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: block;
+        }
+        
+        .skill-card input {
+            position: absolute;
+            opacity: 0;
+            left: -9999px;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 15px rgba(255, 107, 53, 0.2);
+            border-color: var(--primary);
+        }
+        
+        /* Fixed glow effect for selected cards */
+        .skill-card.selected {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border-color: var(--light);
+            box-shadow: 0 0 15px var(--primary), 0 0 30px var(--glow-color);
+            animation: cardGlow 1.5s infinite alternate;
+        }
+        
+        @keyframes cardGlow {
+            0% {
+                box-shadow: 0 0 15px var(--primary), 0 0 20px var(--glow-color);
+            }
+            100% {
+                box-shadow: 0 0 20px var(--primary), 0 0 40px var(--glow-color);
+            }
+        }
+        
+        .skill-card span {
+            display: block;
+            font-size: 2rem;
+            margin-bottom: 5px;
+            font-weight: bold;
+            font-family: 'Righteous', cursive;
+            transform: rotate(-5deg);
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.3);
+        }
+        
+        .skill-card small {
+            display: block;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+        
+        .skill-card.selected small {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Skill card icons */
+        .skill-card .icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-card:hover .icon,
+        .skill-card.selected .icon {
+            transform: rotate(360deg) scale(1.2);
+            opacity: 1;
+        }
+        
+        .find-btn {
+            display: inline-block;
+            background: var(--primary);
+            color: var(--light);
+            text-decoration: none;
+            padding: 12px 35px;
+            border-radius: 50px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
+            opacity: 0.5;
+            pointer-events: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            font-size: 16px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.3);
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .find-btn.active {
+            opacity: 1;
+            pointer-events: all;
+            box-shadow: 0 8px 25px rgba(255, 107, 53, 0.7);
+            animation: buttonPulse 2s infinite;
+        }
+        
+        @keyframes buttonPulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(255, 107, 53, 0.7);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 8px 30px rgba(255, 107, 53, 0.9);
+            }
+            100% {
+                transform: scale(1);
+                box-shadow: 0 8px 25px rgba(255, 107, 53, 0.7);
+            }
+        }
+        
+        .find-btn:hover {
+            transform: translateY(-5px);
+        }
+        
+        .find-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            transition: all 0.5s ease;
+            transform: scaleX(0);
+            transform-origin: left;
+        }
+        
+        .find-btn:hover::after {
+            transform: scaleX(1);
+        }
+        
+        .circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 1;
+            animation: float 8s infinite alternate ease-in-out;
+        }
+        
+        @keyframes float {
+            from { transform: translate(0, 0) rotate(0deg); }
+            to { transform: translate(-20px, -20px) rotate(5deg); }
+        }
+        
+        .circle-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--primary);
+            top: 10%;
+            left: -150px; /* Adjusted to prevent overflow */
+            animation-delay: 0s;
+        }
+        
+        .circle-2 {
+            width: 500px;
+            height: 500px;
+            background: var(--secondary);
+            bottom: -250px;
+            right: -250px;
+            opacity: 0.1;
+            animation-delay: 2s;
+            animation-direction: alternate-reverse;
+        }
+        
+        /* Flying elements */
+        .flying-emoji {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: flyAround 15s linear infinite;
+            opacity: 0.7;
+            z-index: 5;
+        }
+        
+        @keyframes flyAround {
+            0% {
+                transform: translate(calc(-50vw - 50px), calc(50vh + 50px)) rotate(0deg);
+            }
+            25% {
+                transform: translate(calc(50vw + 50px), calc(50vh + 50px)) rotate(90deg);
+            }
+            50% {
+                transform: translate(calc(50vw + 50px), calc(-50vh - 50px)) rotate(180deg);
+            }
+            75% {
+                transform: translate(calc(-50vw - 50px), calc(-50vh - 50px)) rotate(270deg);
+            }
+            100% {
+                transform: translate(calc(-50vw - 50px), calc(50vh + 50px)) rotate(360deg);
+            }
+        }
+        
+        .emoji-1 { animation-delay: 0s; }
+        .emoji-2 { animation-delay: 3s; }
+        .emoji-3 { animation-delay: 6s; }
+        .emoji-4 { animation-delay: 9s; }
+        
+        /* Level symbol styles */
+        .level-symbol {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+        
+        /* Mobile responsiveness improvements */
+        @media (max-width: 768px) {
+            .content-box {
+                padding: 20px 15px;
+                width: 95%;
+            }
+            
+            h1 {
+                margin-top: 0;
+            }
+            
+            .subtitle {
+                margin-bottom: 20px;
+                font-size: 0.9rem;
+            }
+            
+            .skill-card {
+                padding: 12px;
+            }
+            
+            .skill-card span {
+                font-size: 1.5rem;
+            }
+            
+            .find-btn {
+                padding: 10px 25px;
+                font-size: 14px;
+                margin-top: 25px;
+            }
+            
+            /* Adjust circle positions for small screens */
+            .circle-1 {
+                width: 200px;
+                height: 200px;
+                left: -100px;
+            }
+            
+            .circle-2 {
+                width: 300px;
+                height: 300px;
+                right: -150px;
+                bottom: -150px;
+            }
+        }
+        
+        /* Small screens */
+        @media (max-width: 480px) {
+            .skills-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 10px;
+            }
+            
+            .content-box {
+                padding: 15px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="skills-container">
+        <div class="circle circle-1"></div>
+        <div class="circle circle-2"></div>
+        
+        <!-- Flying emojis -->
+        <div class="flying-emoji emoji-1">🚀</div>
+        <div class="flying-emoji emoji-2">✨</div>
+        <div class="flying-emoji emoji-3">💪</div>
+        <div class="flying-emoji emoji-4">🔥</div>
+        
+        <div class="content-box">
+            <h1>Select your skill level</h1>
+            <p class="subtitle">Where do you stand on the road to mastery?</p>
+            
+            <div class="skills-grid">
+                <label class="skill-card" id="card-beginner">
+                    <input type="radio" name="skill" value="beginner">
+                    <div class="level-symbol">🔰</div>
+                    
+                        <path d="M10 9h4"/>
+                        <path d="M12 15v-6"/>
+                        <path d="M8 11L12 7"/>
+                    </svg>
+                    <span>1</span>
+                    Beginner
+                    <small>Just getting started!</small>
+                </label>
+                <label class="skill-card" id="card-intermediate">
+                    <input type="radio" name="skill" value="intermediate">
+                    <div class="level-symbol">⏳</div>
+                                            <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 13l4 -2"/>
+                        <path d="M8 17l4 -2"/>
+                        <path d="M12 11l4 -2"/>
+                        <path d="M12 15l4 -2"/>
+                    </svg>
+                    <span>2</span>
+                    Intermediate
+                    <small>Making solid progress!</small>
+                </label>
+                <label class="skill-card" id="card-advanced">
+                    <input type="radio" name="skill" value="advanced">
+                    <div class="level-symbol">🎯</div>
+                                <circle cx="12" cy="12" r="10"/>
+                        <path d="M8 9l4 -2"/>
+                        <path d="M8 13l4 -2"/>
+                        <path d="M8 17l4 -2"/>
+                        <path d="M12 7l4 -2"/>
+                        <path d="M12 11l4 -2"/>
+                        <path d="M12 15l4 -2"/>
+                        <circle cx="16" cy="5" r="1" fill="#4ECDC4"/>
+                        <circle cx="16" cy="9" r="1" fill="#4ECDC4"/>
+                        <circle cx="16" cy="13" r="1" fill="#4ECDC4"/>
+                    </svg>
+                    <span>3</span>
+                    Advanced
+                    <small>Confident and capable!</small>
+                </label>
+            </div>
+            
+            <a href="#" class="find-btn" id="submit-btn">Show my Career</a>
+        </div>
+    </div>
+
+<script>
+    // Completely rewritten script
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get all needed elements
+        const cards = document.querySelectorAll('.skill-card');
+        const radios = document.querySelectorAll('input[type="radio"]');
+        const submitBtn = document.getElementById('submit-btn');
+        
+        // Clear any previously saved selection when the page loads
+        localStorage.removeItem('selectedSkill');
+        
+        // Function to update selection state
+        function updateSelection() {
+            // Remove selected class from all cards
+            cards.forEach(card => card.classList.remove('selected'));
+            
+            // Find checked radio button
+            const checked = document.querySelector('input[name="skill"]:checked');
+            
+            if (checked) {
+                // Get its parent card and add selected class
+                const selectedCard = checked.closest('.skill-card');
+                selectedCard.classList.add('selected');
+                
+                // Activate button
+                submitBtn.classList.add('active');
+            } else {
+                // If nothing selected, deactivate button
+                submitBtn.classList.remove('active');
+            }
+        }
+        
+        // Add click handlers to cards
+        cards.forEach(card => {
+            card.addEventListener('click', function(e) {
+                // Find the radio button inside this card
+                const radio = this.querySelector('input[type="radio"]');
+                
+                // Check it
+                if (radio) {
+                    radio.checked = true;
+                    
+                    // Update the UI
+                    updateSelection();
+                }
+            });
+        });
+        
+        // Add change handlers to radio buttons
+        radios.forEach(radio => {
+            radio.addEventListener('change', updateSelection);
+        });
+        
+        // Handle form submission
+        submitBtn.addEventListener('click', function(e) {
+    e.preventDefault();
+    
+    const selectedSkill = document.querySelector('input[name="skill"]:checked');
+    
+    if (selectedSkill) {
+        // Save to localStorage
+        localStorage.setItem('selectedSkillLevel', selectedSkill.value);
+        
+        // Navigate to results page
+        window.location.href = "result.html";
+    } else {
+        // Alert if nothing selected
+        alert("Please select a skill level");
+    }
+});
+
+    });
+</script>
+
+</body>
+</html>
