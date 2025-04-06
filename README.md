@@ -2,8 +2,18 @@
 
 ![HustleHub Banner](./banner.png.png)
 
+🏆 Submitted for Google Solution Challenge 2025 — aligned with [SDG 4](https://sdgs.un.org/goals/goal4) and [SDG 8](https://sdgs.un.org/goals/goal8)
 
-Discover personalized career recommendations based on your interests and skill level.
+## 🌍 Alignment with UN Sustainable Development Goals (SDGs)
+
+This project contributes to the following UN Sustainable Development Goals:
+
+### 🎯 SDG 4 – Quality Education  
+The platform empowers individuals, especially students, by providing them with career guidance based on their unique skills and interests. This promotes inclusive, equitable, and quality education while fostering lifelong learning opportunities.
+
+### 🎯 SDG 8 – Decent Work and Economic Growth  
+By guiding users toward careers aligned with their strengths, the project supports access to productive employment and promotes sustained, inclusive economic growth and decent work for all.
+
 
 ## Features
 
