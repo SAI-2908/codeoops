@@ -1,6 +1,6 @@
 # HustleHub - Career Path Finder
 
-![HustleHub Banner](./banner.png)
+![HustleHub Banner](./banner.png.png)
 
 
 Discover personalized career recommendations based on your interests and skill level.
