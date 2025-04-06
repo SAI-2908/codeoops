@@ -13,8 +13,7 @@ Discover personalized career recommendations based on your interests and skill l
 - 📱 Fully responsive design
 - 💾 localStorage for persistent selections
 
-- ## Google Tools Used
-
+ ## Google Tools Used
 - Google IDX (for cloud-based development and deployment)
 
 
