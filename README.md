@@ -13,6 +13,11 @@ Discover personalized career recommendations based on your interests and skill l
 - 📱 Fully responsive design
 - 💾 localStorage for persistent selections
 
+- ## Google Tools Used
+
+- Google IDX (for cloud-based development and deployment)
+
+
 ## How to Use
 
 1. Open `index.html` in your browser
